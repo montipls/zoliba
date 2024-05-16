@@ -1,6 +1,8 @@
 # zoliba
 kedvenc játékaim (python)
 
+**Az összes játékhoz kell a "pygame" csomag, és ha jól emlékszem semmi más**
+
 ### Archery
 - bal klikkel tudsz célozni
 - amíg nem találtad el a céltáblákat, addig nem tudsz pénzt felszedni
