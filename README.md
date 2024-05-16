@@ -1,4 +1,4 @@
-# zoliba
+# zolibá
 kedvenc játékaim (python)
 
 **Az összes játékhoz kell a "pygame" csomag, és ha jól emlékszem semmi más**
