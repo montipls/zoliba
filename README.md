@@ -18,6 +18,7 @@ ehhez a játékhoz nem néztem semmilyen tutorialt, magamtól jutott az eszembe 
 
 ez volt a legelső projekt amit csináltam ezek közül. követtem egy tutorialt, de a videóban C++ ban volt minden írva, szóval át kellett fordítanom.
 kipróbáltam több golyóval is, de szegény python nem annyira bírta el, nagyon lassú volt.
+> [tutorial](https://youtu.be/lS_qeBy3aQI?si=sGYpwQNm229x54cd)
 
 ### Grenade
 - csak akkor működik jól, ha 2 kontroller a géphez van csatlakoztatva
@@ -35,6 +36,7 @@ de szerintem még így is több időt töltöttem el játszani vele a húgommal 
 
 nem olyan nagy cucc, ehez is néztem tutorialt de go-ban volt írva, és csak egyszer néztem meg, megpróbáltam magamtól megcsinálni.
 a videóban csak egy terminal alkalmazás volt, szóval a színeket én adtam hozzá
+> [tutorial](https://youtu.be/zW6MEpa9LFo?si=bUmb5ioLp9gsRFXM)
 
 ### pygame 3D
 - WASD-al tudsz mozogni, egérrel tudsz körbe nézni
@@ -43,6 +45,7 @@ a videóban csak egy terminal alkalmazás volt, szóval a színeket én adtam ho
 ezt még 2 éve lemásoltam egy tutorialról, de nagyon lassú volt, és nem valami hatékony.
 a kockák minden oldalát mindegyik frame-ben kirajzolta az ablakra, én most nemrég megcsináltam hogy csak azok látszódjanak amik képen vannak, és nincsenek elbújva egy másik oldal mögé.
 (még így is nagyon lassú, de ilyen 3-4x gyorsabb lett)
+> [tutorial](https://youtu.be/g4E9iq0BixA?si=sKbzhW8oZGnilYoL)
 
 ### Ray Caster
 - WASD-al tudsz mozogni, egérrel tudsz körbe nézni
@@ -50,6 +53,7 @@ a kockák minden oldalát mindegyik frame-ben kirajzolta az ablakra, én most ne
 már rég óta akartam ezt csinálni, de mindig elakadtam valahol.
 kb. egy hete láttam egy videót erről az algoritmusról, és megpróbáltam beprogramozni, hát ez sült ki belőle.
 a felbontás nagyon rossz, mert amúgy nagyon szenved vele a python. arra is gondoltam hogy egyszer meg kéne csinálnom rust-ban ahol 1000x gyorsabb lenne.
+> [tutorial](https://youtu.be/NbSee-XM7WA?si=ZYpLklArnHfFZuHN)
 
 ### Solitaire
 - bal klikkel ki tudsz jelölni kártyákat
