@@ -117,9 +117,6 @@ class Fighter:
         (200, 160, 160),
     ]
 
-    deflect_sprites = [pygame.image.load(f"assets/deflect/{f}") for f in os.listdir("assets/deflect")]
-    flipped_deflect_sprites = [pygame.transform.flip(image.copy(), True, False) for image in deflect_sprites]
-
     def __init__(self, head_pos: vector.Vector, constraint: tuple[int, int, int], head_type: int, sounds):
         self.constraint = constraint
         self.modifier = 0.6
