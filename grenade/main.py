@@ -13,9 +13,7 @@ pygame.display.set_caption("yes")
 pygame.mixer.init()
 footstep = pygame.mixer.Sound("assets/sfx/footstep.ogg")
 explosion = pygame.mixer.Sound("assets/sfx/explosion.ogg")
-deflect = pygame.mixer.Sound("assets/sfx/deflect.wav")
-miss = pygame.mixer.Sound("assets/sfx/miss.flac")
-sounds = [footstep, explosion, deflect, miss]
+sounds = [footstep, explosion]
 
 bg = pygame.image.load("assets/bg.png")
 floor = pygame.image.load("assets/floor.png")
