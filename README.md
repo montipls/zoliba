@@ -1,0 +1,2 @@
+# zoliba
+kedvenc jatekaim (python)
