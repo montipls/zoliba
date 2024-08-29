@@ -1,7 +1,8 @@
-import pygame
 import sys
 import math
 import json
+
+import pygame
 
 from vector import Vector
 from const import WINDOW_SIZE, WALL_COLOR, STRING_COLOR, GRAVITY
