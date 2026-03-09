@@ -7,7 +7,7 @@ FLOOR = 20
 
 joysticks = [pygame.joystick.Joystick(i) for i in range(pygame.joystick.get_count())]
 clock = pygame.time.Clock()
-win = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED | pygame.SRCALPHA)
+win = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN | pygame.SCALED | pygame.SRCALPHA, vsync=1)
 pygame.display.set_caption("yes")
 
 pygame.mixer.init()
@@ -39,24 +39,17 @@ while True:
         pt.render(win)
     win.blit(floor, (0, HEIGHT - FLOOR - 2))
     
-
-    for i, fighter in enumerate(fighters):
-        try:
-            fighter.check_for_explosion(fighters[abs(i-1)])
-        except IndexError:
-            fighter.check_for_explosion(None)
-        fighter.check_for_bomb_reload()
-
-        if pygame.mouse.get_pressed()[1]:
-            x, y = pygame.mouse.get_pos()
-            if y > HEIGHT - FLOOR - 1:
-                y = HEIGHT - FLOOR - 1
-            pygame.draw.line(win, (230, 90, 20), (engine.Fighter.reflection(fighter.head.position_current.tup(), HEIGHT - FLOOR)), engine.Fighter.reflection((x, y + 1), HEIGHT - FLOOR), 1)
-            pygame.draw.line(win, (130, 100, 100), (fighter.head.position_current.tup()), (x, y), 1)
-
-        fighter.move(joysticks)
-        fighter.update(HEIGHT - FLOOR, fix_points)
+    for _ in range(2):
+        for i, fighter in enumerate(fighters):
+            try:
+                fighter.check_for_explosion(fighters[abs(i-1)])
+            except IndexError:
+                fighter.check_for_explosion(None)
+            fighter.check_for_bomb_reload()
+            fighter.move(joysticks)
+            fighter.update(HEIGHT - FLOOR, fix_points)
+    
+    for fighter in fighters:
         fighter.render(win, HEIGHT - FLOOR)
 
-    clock.tick(120)
     pygame.display.update()
