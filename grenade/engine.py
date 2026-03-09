@@ -19,7 +19,7 @@ class Point:
         self.friction = 0.94
         self.grab = False
         self.standing = False
-        self.bouncy = 1
+        self.bouncy = 0.7
 
     def update_position(self, floor_y): # dt
         if not self.fixed:
@@ -39,6 +39,47 @@ class Point:
                 self.accelerate(acc/10000)
             else:
                 self.grab = False
+
+    def apply_constraint_bouncy(self, left: int, right: int, bottom: int, fix_points: list):
+        pos = self.position_current.tup()
+
+        self.standing = False
+        
+        if pos[0] > right - self.radius:
+            offset = pos[0] - (right - self.radius)
+            self.position_current.x -= offset
+            self.position_old.x -= offset
+            self.position_old.x = self.position_current.x + (self.position_current.x - self.position_old.x) * self.bouncy
+            self.position_old.y = self.position_current.y - (self.position_current.y - self.position_old.y) * self.friction
+        elif pos[0] < left + self.radius:
+            offset = pos[0] - (left + self.radius)
+            self.position_current.x -= offset
+            self.position_old.x -= offset
+            self.position_old.x = self.position_current.x + (self.position_current.x - self.position_old.x) * self.bouncy
+            self.position_old.y = self.position_current.y - (self.position_current.y - self.position_old.y) * self.friction
+        pos = self.position_current.tup()
+        if pos[1] > bottom - self.radius:
+            offset = pos[1] - (bottom - self.radius)
+            self.position_current.y -= offset
+            self.position_old.y -= offset
+            self.position_old.y = self.position_current.y + (self.position_current.y - self.position_old.y) * self.bouncy
+            self.position_old.x = self.position_current.x - (self.position_current.x - self.position_old.x) * self.friction
+
+            self.standing = True
+
+        for pt in fix_points:
+            axis = self.position_current - vector.Vector.new(pt.pos)
+            dist = math.sqrt(axis.x * axis.x + axis.y * axis.y)
+            if dist < pt.r:
+                n = axis / dist
+                delta = pt.r - dist
+                v = self.position_current - self.position_old
+                dot_product = v.x * n.x + v.y * n.y
+                u = n * dot_product
+                w = v - u
+                self.position_current += n * delta
+                self.position_old += n * delta
+                self.position_old = self.position_current - w * self.friction + u * self.bouncy
 
     def apply_constraint(self, left: int, right: int, bottom: int, fix_points: list):
         pos = self.position_current.tup()
@@ -214,10 +255,12 @@ class Fighter:
             if self.head.grab:
                 self.modifier = 0.6
 
-        self.bomb.friction += 0.01
         self.bomb.accelerate(vector.Vector(0, 0.0006))
         self.bomb.update_position(floor_y)
-        self.bomb.apply_constraint(self.constraint[0], self.constraint[1], self.constraint[2], fix_points)
+        if self.bomb.thrown:
+            self.bomb.apply_constraint_bouncy(self.constraint[0], self.constraint[1], self.constraint[2], fix_points)
+        else:
+            self.bomb.apply_constraint(self.constraint[0], self.constraint[1], self.constraint[2], fix_points)
         if not self.bomb.thrown:
             self.bomb.position_current = self.head.position_current
 
@@ -299,6 +342,8 @@ class Fighter:
                 if dist < 75:
                     joint.accelerate(n * (-dist + 75) * 0.0012)
             self.bomb.self_exploded = True
+            if player == None:
+                self.bomb.opp_exploded = True
 
     def check_for_bomb_reload(self):
         if self.bomb.self_exploded and self.bomb.opp_exploded:
@@ -505,13 +550,13 @@ class Bomb(Point):
     def __init__(self, pos, radius, color):
         super().__init__(pos, radius)
         self.life = 300
-        self.blink = 20
+        self.blink = 12
         self.transparent = False
         self.thrown = False
         self.ready = False
         self.self_exploded = False
         self.opp_exploded = False
-        self.bouncy = 1.3
+        self.bouncy = 0.7
         self.color = color
 
     def throw(self, n):
@@ -528,7 +573,7 @@ class Bomb(Point):
         if self.life < 100:
             self.blink -= 1
             if self.blink <= 0:
-                self.blink = (self.life + 100) / 10
+                self.blink = (self.life + 20) / 10
                 if not self.transparent:
                     self.transparent = True
                 else:
